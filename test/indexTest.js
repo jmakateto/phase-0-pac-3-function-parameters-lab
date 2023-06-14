@@ -1,28 +1,26 @@
-require ( './root.js' );
+const assert = require('chai').assert;
+const { introduction, introductionWithLanguage, introductionWithLanguageOptional } = require('../index');
 
+describe('Introduction Functions', () => {
+  describe('introduction()', () => {
+    it('should return a phrase with the provided name', () => {
+      assert.strictEqual(introduction('John'), 'Hi, my name is John.');
+    });
+  });
 
-describe('introduction(name)', function() {
-  it('takes in an argument of a name and returns a phrase with that name using string interpolation', function() {
-    expect(introduction("Aki")).toEqual("Hi, my name is Aki.");
-    expect(introduction("Samip")).toEqual("Hi, my name is Samip.");
-  })
-})
+  describe('introductionWithLanguage()', () => {
+    it('should return a phrase with the provided name and language', () => {
+      assert.strictEqual(introductionWithLanguage('John', 'Python'), 'Hi, my name is John and I am learning to program in Python.');
+    });
+  });
 
-describe('introductionWithLanguage(name, language)', function() {
-  it('takes in two arguments, a name and a language, and returns a phrase using those arguments', function() {
-    expect(introductionWithLanguage("Aki", "Ember.js")).toEqual("Hi, my name is Aki and I am learning to program in Ember.js.");
-    expect(introductionWithLanguage("Samip", "React")).toEqual("Hi, my name is Samip and I am learning to program in React.");
-  })
-})
+  describe('introductionWithLanguageOptional()', () => {
+    it('should return a phrase with the provided name and default to JavaScript if no language is provided', () => {
+      assert.strictEqual(introductionWithLanguageOptional('John'), 'Hi, my name is John and I am learning to program in JavaScript.');
+    });
 
-describe('introductionWithLanguageOptional(name, language)', function() {
-  it('takes in two arguments, a name and a language, and language defaults to JavaScript', function() {
-    expect(introductionWithLanguageOptional("Gracie")).toEqual("Hi, my name is Gracie and I am learning to program in JavaScript.");
-  })
-})
-
-describe('introductionWithLanguageOptional(name, language)', function() {
-  it('takes in two arguments, a name and a language, and the default value can be overridden with an argument', function() {
-    expect(introductionWithLanguageOptional("Gracie", "Python")).toEqual("Hi, my name is Gracie and I am learning to program in Python.");
-  })
-})
+    it('should return a phrase with the provided name and language if both are provided', () => {
+      assert.strictEqual(introductionWithLanguageOptional('John', 'Python'), 'Hi, my name is John and I am learning to program in Python.');
+    });
+  });
+});
